@@ -1,12 +1,56 @@
-# TruckModeSystem
+# Vehicle Truck Record System
 
-A warehouse has certain number of trucks that transport supplies in and out of the warehouse. Each truck has a unique identifier and a counter to keep a track of how many orders did each truck fulfilled. Whenever a truck moves in/out of the warehouse its unique ID is recorded. Every day when the truck arrives at the warehouse for the first time, the counter is set to 0. 
-From then onwards, the counter is incremented each time the truck enters and exits the warehouse. When the truck will leave the warehouse to deliver supplies to the client, an order will be opened against its ID in the system and the counter will be ‘odd’. This is considered as an open order. The order will be marked as closed when the truck arrives back at the warehouse and the truck’s counter will be ‘even’ at that time. If the counter is 0, it means they have not started working and have just arrived to the warehouse for the first time in the day. Hence the counter indicates the number and status of orders. 
-The warehouse manager requires assistance in keeping a track of open and closed orders through an automated system. In addition to this each truck can do a maximum of ‘x’ deliveries in a day. The implemented system will also help the manager in assigning orders to each vehicle. It can identify which trucks have completed their maximum deliveries for the day and which ones can still be assigned with more orders. 
-The warehouse manager uses the above system to answer the below questions: 
-1. Total vehicles that came to the warehouse for work?
- 2. Check specific truck whereabouts 
-3. Number of open, closed and yet to be fulfilled orders
- 4. List of trucks that have moved in/out of the warehouse more than ’z’ number of times. 
-5. List and number of trucks that have completed their maximum deliveries for the day 
-6. List and number of trucks that are currently in the warehouse and available to deliver supplies
+## Overview
+The Vehicle Truck Record System is designed to manage and track truck entries and exits at a warehouse. Each truck has a unique identifier and a counter that keeps track of how many times it enters or leaves the warehouse. The system helps the warehouse manager track the number and status of open and closed orders and identify which trucks have reached their delivery limit for the day.
+
+## Key Features
+- **Track truck entries and exits**: Records the unique truck IDs and maintains a counter to reflect the number of times a truck enters or exits.
+- **Open and closed order tracking**: Determines the current state of a truck's order based on its counter.
+- **Truck availability**: Identifies trucks that are currently available for deliveries.
+- **High-frequency truck identification**: Lists trucks that have moved in/out of the warehouse more than a specified number of times.
+- **Maximum delivery check**: Lists trucks that have completed their maximum number of deliveries for the day.
+- **BST-based data structure**: Utilizes a Binary Search Tree (BST) for efficient data storage and retrieval.
+
+## Classes and Methods
+### `TruckNode`
+- Represents a unique truck with properties:
+  - `Uid`: Unique Truck ID
+  - `chkoutCtr`: Counter to track the number of entries and exits
+
+### `BSTNode` (inherits from `TruckNode`)
+- Manages the warehouse operations using a BST structure.
+- **Key Methods**:
+  - `_readTruckRec(Uid)`: Reads and inserts truck IDs into the BST and updates the counter.
+  - `_checkTruckRec(Uid)`: Checks the status of a specific truck.
+  - `_printTruckRec(Uids)`: Prints the list of truck IDs and their counters.
+  - `_updateTruckRec(Uid)`: Updates the BST with a new truck entry or increments the counter of an existing truck.
+  - `calculateSum()`: Calculates the sum of open and closed orders.
+  - `_printOrderStatus(targetorders)`: Prints the number of open, closed, and yet-to-be-fulfilled orders.
+  - `_highFreqTrucks_Uids(frequency, Uids)`: Identifies trucks that moved more than a specified frequency.
+  - `_maxDeliveries(Uids)`: Lists trucks that completed their maximum deliveries.
+  - `_availTrucks(Uids)`: Lists trucks currently available for deliveries.
+
+## System Design
+The data structure is implemented using a Binary Search Tree (BST) to allow efficient traversal and data insertion. The BST structure supports recursive traversal and performs insertion and updates without using external libraries.
+
+### Complexity Analysis
+- **Insertion/Search**:
+  - Average case: `O(log n)`
+  - Worst case (degenerated tree): `O(n)`
+- **Traversal**:
+  - `O(n)` for in-order traversal
+
+## Input/Output
+- **Input Files**:
+  - `inputPS2.txt`: Contains truck IDs for initial data loading.
+  - `promptsPS2.txt`: Contains instructions for operations like status checks and updates.
+- **Output**:
+  - `outputPS2.txt`: Records the results of operations as specified.
+
+## Running the Program
+To execute the program, run the `main()` function, which reads inputs from `inputPS2.txt` and processes prompts from `promptsPS2.txt`.
+
+## Example Operations
+- **Read and insert trucks**:
+  ```python
+  bst._readTruckRec(101)
